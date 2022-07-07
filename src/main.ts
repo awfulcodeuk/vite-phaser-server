@@ -7,11 +7,11 @@ import helmet from 'helmet'
 
 import { PhaserGame } from './game'
 
-import { dirname } from 'path'
-import { fileURLToPath } from 'url'
+//import { dirname } from 'path'
+//import { fileURLToPath } from 'url'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+//const __filename = fileURLToPath(import.meta.url)
+//const __dirname = dirname(__filename)
 
 const app = express()
 const server = http.createServer(app)
@@ -30,10 +30,14 @@ app.use(
   })
 )
 
-app.get('/getState', (req, res) => {
+app.get('/', (req, res) => {
+  return `${req} - ${res}`
+})
+
+app.get('/getState', (_req, res) => {
   try {
-    //let gameScene = game.scene.keys['GameScene']
-    return res.json({ state: 'hello'/*state: gameScene.getState()*/ })
+    let gameScene = game.scene.keys['GameScene']
+    return res.json({ state: gameScene.getState() })
   } catch (error) {
     return res.status(500).json({ error: error.message })
   }

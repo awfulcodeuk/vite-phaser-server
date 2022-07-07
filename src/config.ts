@@ -1,6 +1,5 @@
 import '@geckos.io/phaser-on-nodejs'
-import Phaser from 'phaser'
-import { GameScene } from './scenes/game'
+import { GameScene } from './scenes/gameScene'
 
 export const config = {
   type: Phaser.HEADLESS,
@@ -9,7 +8,9 @@ export const config = {
   height: 960,
   zoom: 1,
   banner: false,
-  audio: false,
+  audio: {
+    noAudio: true
+  },
   scene: [GameScene],
   physics: {
     default: 'arcade',

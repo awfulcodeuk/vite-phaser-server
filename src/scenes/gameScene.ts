@@ -7,11 +7,11 @@ const { Scene } = pkg
 const SI = new SnapshotInterpolation()
 
 // dir and filenames
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
+//import { fileURLToPath } from 'url'
+//import { dirname } from 'path'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+//const __filename = fileURLToPath(import.meta.url)
+//const __dirname = dirname(__filename)
 
 const iceServers = [
   {
@@ -35,8 +35,13 @@ const iceServers = [
 ]
 
 export class GameScene extends Scene {
-  constructor() {
+  tick: number
+  io: any
+  server: any
+  constructor(server) {
     super({ key: 'GameScene' })
+    this.tick = 0
+    this.game.server = server
   }
 
   init() {
@@ -103,15 +108,14 @@ export class GameScene extends Scene {
     this.tick++
     // only send the update to the client at 15 FPS (save bandwidth)
     if (this.tick % 4 !== 0) return
-/*
 
     const avatars = []
-    this.players.forEach(player => {
+   /* this.players.forEach(player => {
       const { channel, avatar } = player
       this.updatePlayer(avatar)
       avatars.push({ id: channel.id, x: avatar.x, y: avatar.y, playerNumber: avatar.playerID, isConnected: avatar.isConnected, isVoting: avatar.isVoting, playerAnimFrame: avatar.animFrame, bombRange: avatar.bombRange, maxBombs: avatar.maxBombs, speed: avatar.speed, isDead: avatar.isDead})
       if (avatar.isConnected && !avatar.isVoting) voteOutcome = false
-    })
+    })*/
     
     const worldState = {
       players: avatars
@@ -121,13 +125,11 @@ export class GameScene extends Scene {
     SI.vault.add(snapshot)
 
     // send all avatars and blocks to all players
-    this.players.forEach(player => {
+    /*this.players.forEach(player => {
       const { channel } = player
       channel.emit('snapshot', snapshot)
-    })
+    })*/
 
-    if (voteOutcome) this.resetGame()
-    */
   }
   
   getNewEntityID() {
