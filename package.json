@@ -1,0 +1,22 @@
+{
+  "name": "vite-phaser-client",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.23.0",
+    "eslint": "^8.19.0",
+    "typescript": "^4.7.4",
+    "vite": "^2.9.13"
+  },
+  "dependencies": {
+    "@geckos.io/client": "^2.2.1",
+    "@geckos.io/phaser-on-nodejs": "^1.2.7",
+    "@geckos.io/snapshot-interpolation": "^1.1.0",
+    "@geckos.io/typed-array-buffer-schema": "^1.2.0",
+    "phaser": "^3.55.2"
+  }
+}
