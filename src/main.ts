@@ -1,32 +1,46 @@
+import 'dotenv/config'
+
 import express from 'express'
-import { Server } from 'socket.io'
 import http from 'http'
-import path from 'path'
-import fs from 'fs'
-import geckos from '@geckos.io/server'
+import cors from 'cors'
+import helmet from 'helmet'
 
-const app = express()
+import { PhaserGame } from './game'
 
-const server = http.createServer(app)
-const io = geckos({
-  portRange: {
-    min: 27900,
-    max: 27910
-  }
-})
-// dir and filenames
+import { dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { dirname, join } from 'path'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-app.use(express.static(path.join(__dirname, 'src')))
+const app = express()
+const server = http.createServer(app)
 
-app.use('/', express.static(path.join(__dirname, '/')))
+const game = new PhaserGame(server)
+const port = process.env.EXPRESS_SERVER_PORT || 5001
 
-app.listen(process.env.PORT, () => {
-  console.log(`Static server started and listening on port ${process.env.PORT}`)
+const corsAllowed = ['*.awfulcode.co.uk', '*.local.dev']
+app.use(cors({
+  origin: corsAllowed
+}))
+
+app.use(
+  helmet({
+    crossOriginEmbedderPolicy: false
+  })
+)
+
+app.get('/getState', (req, res) => {
+  try {
+    let gameScene = game.scene.keys['GameScene']
+    return res.json({ state: 'hello'/*state: gameScene.getState()*/ })
+  } catch (error) {
+    return res.status(500).json({ error: error.message })
+  }
 })
 
-export const viteNodeApp = app
+server.listen(port, () => {
+  console.log('Express is listening on port ' + port)
+})
+
+export const main = app

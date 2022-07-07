@@ -1,6 +1,7 @@
+import 'dotenv/config'
+
 import { defineConfig } from 'vite'
 import { VitePluginNode } from 'vite-plugin-node'
-
 
 export default defineConfig({
   base: './',
@@ -11,7 +12,7 @@ export default defineConfig({
   },  
   server: {
     // vite server configs, for details see [vite doc](https://vitejs.dev/config/#server-host)
-    port: 3000
+    port: process.env.VITE_SERVER_PORT || 5000
   },
   plugins: [
     ...VitePluginNode({
@@ -21,11 +22,11 @@ export default defineConfig({
       adapter: 'express',
 
       // tell the plugin where is your project entry
-      appPath: './src/serverApp.ts',
+      appPath: './src/main.ts',
 
       // Optional, default: 'viteNodeApp'
       // the name of named export of you app from the appPath file
-      exportName: 'viteNodeApp',
+      exportName: 'main',
 
       // Optional, default: 'esbuild'
       // The TypeScript compiler you want to use
