@@ -45,6 +45,7 @@ app.get('/getState', (_req, res) => {
 })
 
 server.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log(`Express is listening on port ${port}`)
 })
 
