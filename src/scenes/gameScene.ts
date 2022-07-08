@@ -37,16 +37,14 @@ const iceServers = [
 export class GameScene extends Scene {
   tick: number
   io: any
-  server: any
-  constructor(server) {
+  constructor() {
     super({ key: 'GameScene' })
     this.tick = 0
-    this.game.server = server
   }
 
   init() {
-    const geckosStartUDP = Number(String(process.env.GECKOS_UDP_START_PORT)) || 5000
-    const geckosEndUDP = Number(String(process.env.GECKOS_UDP_END_PORT)) || 5000
+    const geckosStartUDP = Number(String(process.env.GECKOS_UDP_START_PORT)) || 27900
+    const geckosEndUDP = Number(String(process.env.GECKOS_UDP_END_PORT)) || 27920
     this.io = geckos({
       iceServers,
       portRange: {
@@ -87,11 +85,11 @@ export class GameScene extends Scene {
         } */
       })
 
-      channel.on('addPlayer', (data) => {
+      channel.on('addPlayer', (_data) => {
 
       })
 
-      channel.on('playerMove', (data) => {
+      channel.on('playerMove', (_data) => {
         // if (this.players.has(channel.id)) this.players.get(channel.id).avatar.setMove(data)
       })
 
