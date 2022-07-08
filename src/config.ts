@@ -9,13 +9,13 @@ export const config = {
   zoom: 1,
   banner: false,
   audio: {
-    noAudio: true
+    noAudio: true,
   },
   scene: [GameScene],
   physics: {
     default: 'arcade',
     arcade: {
-      gravity: { y: 0 }
-    }
-  }
+      gravity: { y: 0 },
+    },
+  },
 }

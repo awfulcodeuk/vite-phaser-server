@@ -7,31 +7,31 @@ const { Scene } = pkg
 const SI = new SnapshotInterpolation()
 
 // dir and filenames
-//import { fileURLToPath } from 'url'
-//import { dirname } from 'path'
+// import { fileURLToPath } from 'url'
+// import { dirname } from 'path'
 
-//const __filename = fileURLToPath(import.meta.url)
-//const __dirname = dirname(__filename)
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname = dirname(__filename)
 
 const iceServers = [
   {
-    urls: "stun:openrelay.metered.ca:80",
+    urls: 'stun:openrelay.metered.ca:80',
   },
   {
-    urls: "turn:openrelay.metered.ca:80",
-    username: "openrelayproject",
-    credential: "openrelayproject",
+    urls: 'turn:openrelay.metered.ca:80',
+    username: 'openrelayproject',
+    credential: 'openrelayproject',
   },
   {
-    urls: "turn:openrelay.metered.ca:443",
-    username: "openrelayproject",
-    credential: "openrelayproject",
+    urls: 'turn:openrelay.metered.ca:443',
+    username: 'openrelayproject',
+    credential: 'openrelayproject',
   },
   {
-    urls: "turn:openrelay.metered.ca:443?transport=tcp",
-    username: "openrelayproject",
-    credential: "openrelayproject",
-  }
+    urls: 'turn:openrelay.metered.ca:443?transport=tcp',
+    username: 'openrelayproject',
+    credential: 'openrelayproject',
+  },
 ]
 
 export class GameScene extends Scene {
@@ -48,17 +48,17 @@ export class GameScene extends Scene {
     const geckosStartUDP = Number(String(process.env.GECKOS_UDP_START_PORT)) || 5000
     const geckosEndUDP = Number(String(process.env.GECKOS_UDP_END_PORT)) || 5000
     this.io = geckos({
-      iceServers: iceServers,
+      iceServers,
       portRange: {
         min: geckosStartUDP,
-        max: geckosEndUDP
-      }
+        max: geckosEndUDP,
+      },
     })
     this.io.addServer(this.game.server)
   }
 
   getId() {
-    //return ++this.playerId
+    // return ++this.playerId
   }
 
   getState() {
@@ -66,38 +66,37 @@ export class GameScene extends Scene {
   }
 
   create() {
-    this.io.onConnection(channel => {
+    this.io.onConnection((channel) => {
       channel.onDisconnect(() => {
-        /*if (!this.isResetting) {
+        /* if (!this.isResetting) {
           if (this.players.has(channel.id)) {
             const player = this.players.get(channel.id).avatar
             player.isConnected = false
             player.kill()
             channel.emit('removePlayer', channel.playerId)
           }
-        }*/
+        } */
       })
 
-
       channel.on('getId', () => {
-       /* if (this.players.size < 4) {
+        /* if (this.players.size < 4) {
           channel.playerId = this.getId()
           channel.emit('getId', channel.playerId.toString(36))
         } else {
           channel.emit('too_many_players', this.players.size)
-        }*/
+        } */
       })
 
-      channel.on('addPlayer', data => {
-       
+      channel.on('addPlayer', (data) => {
+
       })
 
-      channel.on('playerMove', data => {
-        //if (this.players.has(channel.id)) this.players.get(channel.id).avatar.setMove(data)
+      channel.on('playerMove', (data) => {
+        // if (this.players.has(channel.id)) this.players.get(channel.id).avatar.setMove(data)
       })
 
       channel.on('voteButton', () => {
-        //this.players.get(channel.id).avatar.isVoting = !this.players.get(channel.id).avatar.isVoting
+        // this.players.get(channel.id).avatar.isVoting = !this.players.get(channel.id).avatar.isVoting
       })
 
       channel.emit('ready')
@@ -107,33 +106,33 @@ export class GameScene extends Scene {
   update() {
     this.tick++
     // only send the update to the client at 15 FPS (save bandwidth)
-    if (this.tick % 4 !== 0) return
+    if (this.tick % 4 !== 0)
+      return
 
     const avatars = []
-   /* this.players.forEach(player => {
+    /* this.players.forEach(player => {
       const { channel, avatar } = player
       this.updatePlayer(avatar)
       avatars.push({ id: channel.id, x: avatar.x, y: avatar.y, playerNumber: avatar.playerID, isConnected: avatar.isConnected, isVoting: avatar.isVoting, playerAnimFrame: avatar.animFrame, bombRange: avatar.bombRange, maxBombs: avatar.maxBombs, speed: avatar.speed, isDead: avatar.isDead})
       if (avatar.isConnected && !avatar.isVoting) voteOutcome = false
-    })*/
-    
+    }) */
+
     const worldState = {
-      players: avatars
+      players: avatars,
     }
 
     const snapshot = SI.snapshot.create(worldState)
     SI.vault.add(snapshot)
 
     // send all avatars and blocks to all players
-    /*this.players.forEach(player => {
+    /* this.players.forEach(player => {
       const { channel } = player
       channel.emit('snapshot', snapshot)
-    })*/
-
+    }) */
   }
-  
+
   getNewEntityID() {
-    //return ++this.globalEntityID
+    // return ++this.globalEntityID
   }
 
   resetGame() {
@@ -162,11 +161,11 @@ export class GameScene extends Scene {
     this.lifetimeExplosionCount = 0
     this.spawnLocations = []
     this.globalEntityID = 0
-    
+
     stagePowerupPool = initialStagePowerupPool
 
     this.spawnStage()
-    
+
     this.isResetting = false
     */
   }

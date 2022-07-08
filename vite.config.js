@@ -8,11 +8,11 @@ export default defineConfig({
   build: {
     // Do not inline images and assets to avoid the phaser error
     // "Local data URIs are not supported"
-    assetsInlineLimit: 0
-  },  
+    assetsInlineLimit: 0,
+  },
   server: {
     // vite server configs, for details see [vite doc](https://vitejs.dev/config/#server-host)
-    port: process.env.VITE_SERVER_PORT || 5000
+    port: process.env.VITE_SERVER_PORT || 5000,
   },
   plugins: [
     ...VitePluginNode({
@@ -50,13 +50,13 @@ export default defineConfig({
       // }
       // }
       // swc configs, see [swc doc](https://swc.rs/docs/configuration/swcrc)
-      swcOptions: {}
-    })
+      swcOptions: {},
+    }),
   ],
   optimizeDeps: {
     exclude: [
       'node-datachannel',
-    ]
+    ],
     // Vite does not work well with optional dependencies,
     // you can mark them as ignored for now
     // eg: for nestjs, exclude these optional dependencies:
